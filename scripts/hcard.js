@@ -161,17 +161,24 @@ function parse_vcard(context){
 		if (_type[0] !== undefined){
 			vcard.email[i] = new Object();
 			vcard.email[i].type = _type[0].getMicroformat();
-			vcard.email[i].value = _email[i].getMicroformat();
+			vcard.email[i].value = _email[i].getMicroformatUri();
+			if (vcard.email[i].value == ''){
+				vcard.email[i].value = _email[i].getMicroformat();
+			}
 			_type = null;
 		}else{
 			vcard.email[i] = _email[i].getMicroformat();
+			if (vcard.email[i] == ''){
+				vcard.email[i] = _email[i].getMicroformat();
+			}
 		}
 	}
 	if (vcard.email.length == 1){
 		vcard.email = vcard.email[0];
-	}
-	if (vcard.email.length == 0){
-		vcard.email = '';
+	}else{
+		if (vcard.email.length == 0){
+			vcard.email = '';
+		}
 	}
 	_email = null;
 
@@ -244,9 +251,10 @@ function parse_vcard(context){
 	}
 	if (vcard.org.length == 1){
 		vcard.org = vcard.org[0];
-	}
-	if (vcard.org.length == 0){
-		vcard.org = '';
+	}else{
+		if (vcard.org.length == 0){
+			vcard.org = '';
+		}
 	}
 	_org = null;
 	
@@ -259,17 +267,24 @@ function parse_vcard(context){
 		if (_type[0] !== undefined){
 			vcard.tel[i] = new Object();
 			vcard.tel[i].type = _type[0].getMicroformat();
-			vcard.tel[i].value = _tel[i].getMicroformat();
+			vcard.tel[i].value = _tel[i].getMicroformatUri();
+			if (vcard.tel[i].value == ''){
+				vcard.tel[i].value = _tel[i].getMicroformat();
+			}
 			_type = null;
 		}else{
-			vcard.tel[i] = _tel[i].getMicroformat();
+			vcard.tel[i] = _tel[i].getMicroformatUri();
+			if (vcard.tel[i] == ''){
+				vcard.tel[i] = _tel[i].getMicroformat();
+			}
 		}
 	}
 	if (vcard.tel.length == 1){
 		vcard.tel = vcard.email[0];
-	}
-	if (vcard.tel.length == 0){
-		vcard.tel = '';
+	}else{
+		if (vcard.tel.length == 0){
+			vcard.tel = '';
+		}
 	}
 	_tel = null;
 	
@@ -288,7 +303,37 @@ function parse_vcard(context){
 		}
 	}
 	_role = null;
-	
+
+	//detect url
+	var _url = context.getElementsByClassName('url');
+	var i = _url.length || '0';
+	vcard.url = [];
+	while (i--){
+		var _type = _url[i].getElementsByClassName('type');
+		if (_type[0] !== undefined){
+			vcard.url[i] = new Object();
+			vcard.url[i].type = _type[0].getMicroformat();
+			vcard.url[i].value = _url[i].getMicroformatUri();
+			if (vcard.url[i].value == ''){
+				vcard.url[i].value = _url[i].getMicroformat();
+			}
+			_type = null;
+		}else{
+			vcard.url[i] = _url[i].getMicroformatUri();
+			if (vcard.url[i] == ''){
+				vcard.url[i] = _url[i].getMicroformat();
+			}
+		}
+	}
+	if (vcard.url.length == 1){
+		vcard.url = vcard.url[0];
+	}else{
+		if (vcard.url.length == 0){
+			vcard.url = '';
+		}
+	}
+	_url = null;
+
 	console.debug(vcard);
 }
 
