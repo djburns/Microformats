@@ -273,6 +273,22 @@ function parse_vcard(context){
 	}
 	_tel = null;
 	
+	//detect role
+	var _role = context.getElementsByClassName('role');
+	var i = _role.length || '0';
+	vcard.role = [];
+	while (i--){
+		vcard.role[i] = _role[i].getMicroformat();
+	}
+	if (vcard.role.length == 1){
+		vcard.role = vcard.role[0];
+	}else{
+		if (vcard.role.length == 0){
+			vcard.role = '';
+		}
+	}
+	_role = null;
+	
 	console.debug(vcard);
 }
 
