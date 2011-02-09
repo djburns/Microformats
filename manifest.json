@@ -1,0 +1,24 @@
+{
+  "name": "Microformat",
+  "version": "0.0.1",
+  "description": "Shows microformats on the page.",
+  "page_action": {
+    "default_icon": "images/microformats-logo-16.png",
+    "default_title" : "Click to view the microformats…",
+    "popup": "popup.html"
+  },
+  "content_scripts": [ {
+      "js": [
+        "contentscript.js",
+        "scripts/hcard.js"
+      ],
+      "matches": [ "http://*/*", "https://*/*", "file://*/*" ],
+      "run_at":"document_idle"
+   } ],
+  "icons" : {
+    "16" : "images/microformats-logo-16.png",
+    "48" : "images/microformats-logo-48.png"
+  },
+  "permissions": [ "tabs", "http://*/*", "https://*/*" ],
+  "background_page": "background.html"
+}
