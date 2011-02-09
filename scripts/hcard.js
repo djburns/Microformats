@@ -92,6 +92,7 @@ function parse_vcard(context){
 		}else{
 		}
 	}
+	_n = _fn = _org = null;
 	
 	
 	//detect address
@@ -137,6 +138,7 @@ function parse_vcard(context){
 	if (vcard.adr.length == 0){
 		vcard.adr = '';
 	}
+	_adr = null;
 	
 	//detect birthday
 	var _bday = context.getElementsByClassName('bday');
@@ -171,6 +173,7 @@ function parse_vcard(context){
 	if (vcard.email.length == 0){
 		vcard.email = '';
 	}
+	_email = null;
 
 	//detect geo
 	var _geo = context.getElementsByClassName('geo');
@@ -211,6 +214,7 @@ function parse_vcard(context){
 	if (vcard.title.length == 0){
 		vcard.title = '';
 	}
+	_title = null;
 	
 	//detect title
 	var _org = context.getElementsByClassName('org');
@@ -244,6 +248,7 @@ function parse_vcard(context){
 	if (vcard.org.length == 0){
 		vcard.org = '';
 	}
+	_org = null;
 	
 	//detect tel
 	var _tel = context.getElementsByClassName('tel');
@@ -266,7 +271,7 @@ function parse_vcard(context){
 	if (vcard.tel.length == 0){
 		vcard.tel = '';
 	}
-	
+	_tel = null;
 	
 	console.debug(vcard);
 }
